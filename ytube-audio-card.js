@@ -619,6 +619,8 @@ class YtubeAudioCard extends HTMLElement {
           display: flex;
           align-items: center;
           gap: 6px;
+          min-width: 0;
+          overflow: hidden;
         }
         
         .slider-time {
@@ -1314,7 +1316,7 @@ if (!window.customCards.some(card => card.type === 'ytube-audio-card')) {
   });
 }
 
-console.info('%c ytube-audio Card %c v2.1.1 ', 
+console.info('%c ytube-audio Card %c v2.1.2 ', 
   'background: #03a9f4; color: white; font-weight: bold;',
   'background: #333; color: white;'
 );
