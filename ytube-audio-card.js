@@ -29,10 +29,17 @@ class YtubeAudioCard extends HTMLElement {
       entityPicker.hass = hass;
     }
     
+    // Track previous state to detect changes
+    const prevState = this._mediaState;
+    const prevTitle = this._mediaTitle;
+    const prevImage = this._mediaImage;
+    
     this._updateQueue();
     
-    // Only do full render on first set or if we need to initialize
-    if (firstSet || !this._entityPickerInitialized) {
+    // Re-render if media state/title/image changed, or first set, or not initialized
+    const stateChanged = prevState !== this._mediaState || prevTitle !== this._mediaTitle || prevImage !== this._mediaImage;
+    
+    if (firstSet || !this._entityPickerInitialized || stateChanged) {
       this._render();
     } else {
       this._updateDynamicContent();
@@ -1307,7 +1314,7 @@ if (!window.customCards.some(card => card.type === 'ytube-audio-card')) {
   });
 }
 
-console.info('%c ytube-audio Card %c v2.1.0 ', 
+console.info('%c ytube-audio Card %c v2.1.1 ', 
   'background: #03a9f4; color: white; font-weight: bold;',
   'background: #333; color: white;'
 );
