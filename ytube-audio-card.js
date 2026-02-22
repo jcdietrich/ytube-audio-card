@@ -490,24 +490,142 @@ class YtubeAudioCard extends HTMLElement {
           cursor: not-allowed;
         }
         
-        .volume-section {
+        .player-section {
+          display: flex;
+          gap: 16px;
+          margin-bottom: 16px;
+          padding: 12px;
+          background: rgba(var(--rgb-primary-color, 3, 169, 244), 0.08);
+          border-radius: 12px;
+        }
+        
+        .player-artwork {
+          width: 100px;
+          height: 100px;
+          border-radius: 8px;
+          object-fit: cover;
+          background: var(--divider);
+          flex-shrink: 0;
+        }
+        
+        .player-artwork.placeholder {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text-secondary);
+        }
+        
+        .player-artwork.placeholder ha-icon {
+          --mdc-icon-size: 48px;
+          opacity: 0.5;
+        }
+        
+        .player-controls-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-width: 0;
+        }
+        
+        .player-info {
+          margin-bottom: 8px;
+        }
+        
+        .player-title {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--text-primary);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-bottom: 2px;
+        }
+        
+        .player-artist {
+          font-size: 12px;
+          color: var(--text-secondary);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        
+        .playback-controls {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+          margin-bottom: 8px;
+        }
+        
+        .playback-controls .btn {
+          width: 36px;
+          height: 36px;
+          background: transparent;
+          color: var(--text-primary);
+        }
+        
+        .playback-controls .btn:hover {
+          color: var(--primary-color);
+          background: rgba(var(--rgb-primary-color, 3, 169, 244), 0.1);
+        }
+        
+        .playback-controls .btn.large {
+          width: 44px;
+          height: 44px;
+          background: var(--primary-color);
+          color: white;
+        }
+        
+        .playback-controls .btn.large:hover {
+          background: var(--primary-color);
+          opacity: 0.85;
+        }
+        
+        .slider-row {
           display: flex;
           align-items: center;
           gap: 8px;
-          margin-bottom: 16px;
-          padding: 0 4px;
+          margin-bottom: 6px;
         }
         
-        .volume-icon {
+        .slider-row:last-child {
+          margin-bottom: 0;
+        }
+        
+        .slider-icon {
           color: var(--text-secondary);
           cursor: pointer;
+          flex-shrink: 0;
         }
         
-        .volume-icon:hover {
+        .slider-icon:hover {
           color: var(--primary-color);
         }
         
-        .volume-slider {
+        .slider-icon ha-icon {
+          --mdc-icon-size: 20px;
+        }
+        
+        .slider-container {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+        
+        .slider-time {
+          font-size: 10px;
+          color: var(--text-secondary);
+          min-width: 32px;
+          font-variant-numeric: tabular-nums;
+        }
+        
+        .slider-time.end {
+          text-align: right;
+        }
+        
+        .player-slider {
           flex: 1;
           -webkit-appearance: none;
           appearance: none;
@@ -518,97 +636,39 @@ class YtubeAudioCard extends HTMLElement {
           cursor: pointer;
         }
         
-        .volume-slider::-webkit-slider-thumb {
+        .player-slider::-webkit-slider-thumb {
           -webkit-appearance: none;
           appearance: none;
-          width: 12px;
-          height: 12px;
+          width: 14px;
+          height: 14px;
           border-radius: 50%;
           background: var(--primary-color);
           cursor: pointer;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+          transition: transform 0.1s;
         }
         
-        .volume-slider::-moz-range-thumb {
-          width: 12px;
-          height: 12px;
+        .player-slider::-webkit-slider-thumb:hover {
+          transform: scale(1.2);
+        }
+        
+        .player-slider::-moz-range-thumb {
+          width: 14px;
+          height: 14px;
           border-radius: 50%;
           background: var(--primary-color);
           cursor: pointer;
           border: none;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         
-        .playback-controls {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          margin-bottom: 16px;
+        .player-slider:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
         
-        .playback-controls .btn {
-          width: 40px;
-          height: 40px;
-        }
-        
-        .playback-controls .btn.large {
-          width: 48px;
-          height: 48px;
-        }
-        
-        .now-playing {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
-          padding: 12px;
-          background: rgba(var(--rgb-primary-color, 3, 169, 244), 0.08);
-          border-radius: 12px;
-        }
-        
-        .now-playing-artwork {
-          width: 80px;
-          height: 80px;
-          border-radius: 8px;
-          object-fit: cover;
-          background: var(--divider);
-          flex-shrink: 0;
-        }
-        
-        .now-playing-artwork.placeholder {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-        }
-        
-        .now-playing-info {
-          flex: 1;
-          min-width: 0;
-        }
-        
-        .now-playing-title {
-          font-size: 16px;
-          font-weight: 500;
-          color: var(--text-primary);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          margin-bottom: 4px;
-        }
-        
-        .now-playing-artist {
-          font-size: 14px;
-          color: var(--text-secondary);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        
-        .now-playing-state {
-          font-size: 12px;
-          color: var(--primary-color);
-          text-transform: capitalize;
-          margin-top: 4px;
+        .player-slider:disabled::-webkit-slider-thumb {
+          cursor: not-allowed;
         }
       </style>
       
@@ -651,68 +711,76 @@ class YtubeAudioCard extends HTMLElement {
           </button>
         </div>
         
-        ${hasEntity && (this._mediaTitle || this._mediaState === 'playing' || this._mediaState === 'paused') ? `
-          <div class="now-playing">
+        ${hasEntity ? `
+          <div class="player-section">
             ${this._mediaImage ? `
-              <img class="now-playing-artwork" src="${this._mediaImage}" alt="Album art">
+              <img class="player-artwork" src="${this._mediaImage}" alt="Album art">
             ` : `
-              <div class="now-playing-artwork placeholder">
+              <div class="player-artwork placeholder">
                 <ha-icon icon="mdi:music"></ha-icon>
               </div>
             `}
-            <div class="now-playing-info">
-              <div class="now-playing-title">${this._mediaTitle || 'Unknown'}</div>
-              ${this._mediaArtist ? `<div class="now-playing-artist">${this._mediaArtist}</div>` : ''}
-              <div class="now-playing-state">${this._mediaState || 'idle'}</div>
+            <div class="player-controls-container">
+              ${this._mediaTitle ? `
+                <div class="player-info">
+                  <div class="player-title">${this._mediaTitle}</div>
+                  ${this._mediaArtist ? `<div class="player-artist">${this._mediaArtist}</div>` : ''}
+                </div>
+              ` : ''}
+              
+              <div class="playback-controls">
+                <button class="btn" id="prevBtn" title="Previous">
+                  <ha-icon icon="mdi:skip-previous"></ha-icon>
+                </button>
+                <button class="btn" id="stopBtn" title="Stop">
+                  <ha-icon icon="mdi:stop"></ha-icon>
+                </button>
+                <button class="btn large" id="playPauseBtn" title="${this._mediaState === 'playing' ? 'Pause' : 'Play'}">
+                  <ha-icon icon="mdi:${this._mediaState === 'playing' ? 'pause' : 'play'}"></ha-icon>
+                </button>
+                <button class="btn" id="nextBtn" title="Next">
+                  <ha-icon icon="mdi:skip-next"></ha-icon>
+                </button>
+              </div>
+              
+              ${this._config.show_seek ? `
+                <div class="slider-row">
+                  <span class="slider-icon">
+                    <ha-icon icon="mdi:progress-clock"></ha-icon>
+                  </span>
+                  <div class="slider-container">
+                    <span class="slider-time">${this._formatTime(this._mediaPosition)}</span>
+                    <input 
+                      type="range" 
+                      class="player-slider" 
+                      id="seekSlider"
+                      min="0" 
+                      max="${this._mediaDuration || 100}" 
+                      value="${this._mediaPosition}"
+                      ${!this._mediaDuration ? 'disabled' : ''}
+                    >
+                    <span class="slider-time end">${this._formatTime(this._mediaDuration)}</span>
+                  </div>
+                </div>
+              ` : ''}
+              
+              <div class="slider-row">
+                <span class="slider-icon" id="volumeIcon">
+                  <ha-icon icon="mdi:${this._mediaVolume === 0 ? 'volume-off' : this._mediaVolume < 0.5 ? 'volume-medium' : 'volume-high'}"></ha-icon>
+                </span>
+                <div class="slider-container">
+                  <input 
+                    type="range" 
+                    class="player-slider" 
+                    id="volumeSlider"
+                    min="0" 
+                    max="1" 
+                    step="0.01"
+                    value="${this._mediaVolume}"
+                  >
+                </div>
+              </div>
             </div>
-          </div>
-        ` : ''}
-        
-        ${hasEntity && this._config.show_seek ? `
-          <div class="seek-section">
-            <div class="seek-slider-container">
-              <span class="seek-time">${this._formatTime(this._mediaPosition)}</span>
-              <input 
-                type="range" 
-                class="seek-slider" 
-                id="seekSlider"
-                min="0" 
-                max="${this._mediaDuration || 100}" 
-                value="${this._mediaPosition}"
-                ${!this._mediaDuration ? 'disabled' : ''}
-              >
-              <span class="seek-time end">${this._formatTime(this._mediaDuration)}</span>
-            </div>
-          </div>
-        ` : ''}
-        
-        ${hasEntity ? `
-          <div class="playback-controls">
-            <button class="btn" id="prevBtn" title="Previous">
-              <ha-icon icon="mdi:skip-previous"></ha-icon>
-            </button>
-            <button class="btn" id="stopBtn" title="Stop">
-              <ha-icon icon="mdi:stop"></ha-icon>
-            </button>
-            <button class="btn large" id="playPauseBtn" title="${this._mediaState === 'playing' ? 'Pause' : 'Play'}">
-              <ha-icon icon="mdi:${this._mediaState === 'playing' ? 'pause' : 'play'}"></ha-icon>
-            </button>
-            <button class="btn" id="nextBtn" title="Next">
-              <ha-icon icon="mdi:skip-next"></ha-icon>
-            </button>
-          </div>
-          
-          <div class="volume-section">
-            <ha-icon class="volume-icon" id="volumeIcon" icon="mdi:${this._mediaVolume === 0 ? 'volume-off' : this._mediaVolume < 0.5 ? 'volume-medium' : 'volume-high'}"></ha-icon>
-            <input 
-              type="range" 
-              class="volume-slider" 
-              id="volumeSlider"
-              min="0" 
-              max="1" 
-              step="0.01"
-              value="${this._mediaVolume}"
-            >
           </div>
           
           <div class="queue-header">
@@ -1129,6 +1197,13 @@ class YtubeAudioCardEditor extends HTMLElement {
       
       <div class="form-row">
         <label class="checkbox-row">
+          <input type="checkbox" id="show_seek" ${this._config.show_seek !== false ? 'checked' : ''}>
+          Show Seek Slider
+        </label>
+      </div>
+      
+      <div class="form-row">
+        <label class="checkbox-row">
           <input type="checkbox" id="show_format" ${this._config.show_format ? 'checked' : ''}>
           Show Format Selector
         </label>
@@ -1141,6 +1216,7 @@ class YtubeAudioCardEditor extends HTMLElement {
     // Add event listeners for other inputs
     this.shadowRoot.getElementById('name')?.addEventListener('change', () => this._valueChanged());
     this.shadowRoot.getElementById('max_visible')?.addEventListener('change', () => this._valueChanged());
+    this.shadowRoot.getElementById('show_seek')?.addEventListener('change', () => this._valueChanged());
     this.shadowRoot.getElementById('show_format')?.addEventListener('change', () => this._valueChanged());
     
     this._initialized = true;
@@ -1193,6 +1269,7 @@ class YtubeAudioCardEditor extends HTMLElement {
       ...this._config,
       name: this.shadowRoot.getElementById('name').value,
       max_visible: parseInt(this.shadowRoot.getElementById('max_visible').value) || 5,
+      show_seek: this.shadowRoot.getElementById('show_seek').checked,
       show_format: this.shadowRoot.getElementById('show_format').checked
     };
     this._fireConfigChanged();
@@ -1230,7 +1307,7 @@ if (!window.customCards.some(card => card.type === 'ytube-audio-card')) {
   });
 }
 
-console.info('%c ytube-audio Card %c v2.0.0 ', 
+console.info('%c ytube-audio Card %c v2.1.0 ', 
   'background: #03a9f4; color: white; font-weight: bold;',
   'background: #333; color: white;'
 );
