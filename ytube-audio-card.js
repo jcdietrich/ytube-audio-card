@@ -106,7 +106,15 @@ class YtubeAudioCard extends HTMLElement {
         this._mediaContentId = playerState.attributes.media_content_id || null;
         this._mediaTitle = playerState.attributes.media_title || null;
         this._mediaArtist = playerState.attributes.media_artist || null;
-        this._mediaImage = playerState.attributes.entity_picture || null;
+        
+        // Get entity_picture and make it a full URL if relative
+        let entityPicture = playerState.attributes.entity_picture || null;
+        if (entityPicture && !entityPicture.startsWith('http')) {
+          // Relative URL - prepend HA base URL
+          const baseUrl = this._hass.hassUrl ? this._hass.hassUrl('') : '';
+          entityPicture = baseUrl + entityPicture;
+        }
+        this._mediaImage = entityPicture;
         
         // Update position based on time elapsed since last update
         if (playerState.state === 'playing' && playerState.attributes.media_position_updated_at) {
@@ -592,8 +600,9 @@ class YtubeAudioCard extends HTMLElement {
         .slider-row {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 6px;
           margin-bottom: 6px;
+          padding-right: 4px;
         }
         
         .slider-row:last-child {
@@ -618,16 +627,16 @@ class YtubeAudioCard extends HTMLElement {
           flex: 1;
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 4px;
           min-width: 0;
-          overflow: hidden;
         }
         
         .slider-time {
           font-size: 10px;
           color: var(--text-secondary);
-          min-width: 32px;
+          min-width: 28px;
           font-variant-numeric: tabular-nums;
+          flex-shrink: 0;
         }
         
         .slider-time.end {
@@ -638,37 +647,48 @@ class YtubeAudioCard extends HTMLElement {
           flex: 1;
           -webkit-appearance: none;
           appearance: none;
-          height: 4px;
-          border-radius: 2px;
+          height: 6px;
+          border-radius: 3px;
           background: var(--divider);
           outline: none;
           cursor: pointer;
+          margin: 0;
+        }
+        
+        .player-slider::-webkit-slider-runnable-track {
+          height: 6px;
+          border-radius: 3px;
         }
         
         .player-slider::-webkit-slider-thumb {
           -webkit-appearance: none;
           appearance: none;
-          width: 14px;
-          height: 14px;
+          width: 16px;
+          height: 16px;
           border-radius: 50%;
           background: var(--primary-color);
           cursor: pointer;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-          transition: transform 0.1s;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          margin-top: -5px;
         }
         
         .player-slider::-webkit-slider-thumb:hover {
-          transform: scale(1.2);
+          transform: scale(1.15);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
         
         .player-slider::-moz-range-thumb {
-          width: 14px;
-          height: 14px;
+          width: 16px;
+          height: 16px;
           border-radius: 50%;
           background: var(--primary-color);
           cursor: pointer;
           border: none;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .player-slider::-moz-range-thumb:hover {
+          transform: scale(1.15);
         }
         
         .player-slider:disabled {
@@ -1316,7 +1336,7 @@ if (!window.customCards.some(card => card.type === 'ytube-audio-card')) {
   });
 }
 
-console.info('%c ytube-audio Card %c v2.1.2 ', 
+console.info('%c ytube-audio Card %c v2.2.0 ', 
   'background: #03a9f4; color: white; font-weight: bold;',
   'background: #333; color: white;'
 );
