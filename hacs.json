@@ -1,0 +1,6 @@
+{
+  "name": "ytube-audio Card",
+  "render_readme": true,
+  "filename": "ytube-audio-card.js",
+  "homeassistant": "2024.1.0"
+}
